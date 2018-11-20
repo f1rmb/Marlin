@@ -2668,7 +2668,12 @@ void lcd_quick_feedback(const bool clear_buttons) {
     //
     // Auto Home
     //
-    MENU_ITEM(gcode, MSG_AUTO_HOME, PSTR("G28"));
+    // Touch-Mi extra
+    #if ENABLED(FIX_MOUNTED_PROBE) && ENABLED(PROBE_TOUCH_MI)
+      MENU_ITEM(gcode, MSG_AUTO_HOME, PSTR("G28\nG1 Z0.5\nG1 Z15.0 F6000\nG27 P0"));
+    #else
+      MENU_ITEM(gcode, MSG_AUTO_HOME, PSTR("G28"));
+    #endif
     #if ENABLED(INDIVIDUAL_AXIS_HOMING_MENU)
       MENU_ITEM(gcode, MSG_AUTO_HOME_X, PSTR("G28 X"));
       MENU_ITEM(gcode, MSG_AUTO_HOME_Y, PSTR("G28 Y"));
